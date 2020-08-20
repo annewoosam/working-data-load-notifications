@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Users</title>
+    <meta name="viewport" content="with=device-withh, initial-scale=1">
+    <title>Notifications</title>
     <link rel="stylesheet" href="/static/styles.css">
     <script
       src="https://code.jquery.com/jquery-3.4.1.js"
@@ -12,45 +12,55 @@
   </head>
   <body>
     <section id="description">
-      <h1>Users</h1>
+      <h1>Notifications</h1>
 
     </section>
 
-    <section id="select-user">
+    <section id="select-notification">
       <h3>Select ID</h3>
 
       <p>
-        Select an ID number to view information about a particular User.
+        Select an ID number to view information about a particular notification.
       </p>
 
-      <form id="get-user">
-        <label for="user-id">
+      <form id="get-notification">
+        <label for="notification-id">
           Select an ID number:
         </label>
-        <select id="user-id" name="user_id">
+        <select id="notification-id" name="notification_id">
           <option value="">Choose an ID</option>
-          {% for n in range(1, 4) %}
+          {% for n in range(1, 2) %}
          <!--  range is plus one from the highest number -->
             <option value="{{ n }}">{{ n }}</option>
           {% endfor %}
         </select>
         <input type="submit">
       </form>
-    </section>
 
-    <section id="display-user">
-      <h3>User Info</h3>
+            <h3>Notification Info</h3>
 
-      <dl>
-        <dt>User Name</dt>
-        <dd id="username">Unknown</dd>
-
-        <dt>Email</dt>
-        <dd id="email">Unknown</dd>
-
-        <dt>Role</dt>
-        <dd id="usertype">Unknown</dd>
-      </dl>
+      <table>
+      <tr>
+        <th>Checklist ID</th>
+        <th>Date Sent to Review</th> 
+        <th>Reviewer</th>
+        <th>Reviewer Email</th>
+        <th>Date Review Complete</th>
+        <th>Date Sent to Recipient</th>
+        <th>Recipient</th>
+        <th>Recipient Email</th>
+      </tr>
+      <tr>
+        <td id="checklistid">Unknown</td>
+        <td id="datesenttoreview">Unknown</td>
+        <td id="reviewerfullname">Unknown</td>
+        <td id="revieweremail">Unknown</td>
+        <td id="datereviewcomplete">Unknown</td>
+        <td id="datetorecipient">Unknown</td>
+        <td id="recipientfullname">Unknown</td>
+        <td id="recipientemail">Unknown</td>
+      </tr>
+      </table>
     </section>
 
     <script src="/static/ajax.js"></script>

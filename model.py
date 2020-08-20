@@ -4,32 +4,31 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
-class User(db.Model):
-    """Data model for an animal."""
+class Notification(db.Model):
+    """Data model for a notification."""
 
-    __tablename__ = 'users'
+    __tablename__ = 'notifications'
 
-    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    email = db.Column(db.String(50), nullable=False)
-    password = db.Column(db.Date(), nullable=False)
-    username = db.Column(db.String(), nullable=False)
-    usertype = db.Column(db.String(), nullable=False)
-
-    # user_id = db.Column(db.Integer,
-    #                      db.ForeignKey('templates.user_id'),
-    #                      nullable=False)
-    # Template = db.relationship('Template', backref='users')
+    notification_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    checklistid = db.Column(db.Integer, nullable=False)
+    datesenttoreview = db.Column(db.Date())
+    reviewerfullname = db.Column(db.String())
+    revieweremail = db.Column(db.String())
+    datereviewcomplete = db.Column(db.Date())
+    recipientfullname = db.Column(db.String())
+    recipientemail = db.Column(db.String())
+    datetorecipient = db.Column(db.Date())
 
     def __repr__(self):
         """Provide helpful representation when printing."""
 
-        return f'<User user_id={self.user_id} email={self.email}> username={self.username} usertype={self.usertype}'
+        return f'<notification notification_id={self.notification_id} checklistid={self.checklistid}>'
 
 
 def connect_to_db(app):
     """Connect the database to our Flask app."""
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres:///users'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres:///notifications'
     app.config['SQLALCHEMY_ECHO'] = False
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app

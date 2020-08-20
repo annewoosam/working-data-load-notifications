@@ -16,42 +16,53 @@ SET default_tablespace = '';
 
 SET default_with_oids = false;
 
-CREATE TABLE users
+CREATE TABLE notifications
  (
-	user_id integer NOT NULL,
-	email character varying(40) NOT NULL,
-	password character varying(40),
-	username character varying(40) NOT NULL,
-	usertype character varying(25) NOT NULL
+	notification_id INTEGER,
+	checklistid VARCHAR,
+	datesenttoreview DATE,
+	reviewerfullname VARCHAR,
+	revieweremail VARCHAR,
+	datereviewcomplete DATE,
+	recipientfullname VARCHAR,
+	recipientemail VARCHAR,
+	datetorecipient DATE
 );
 
-ALTER TABLE users OWNER TO "vagrant";
+ALTER TABLE notifications OWNER TO "vagrant";
 
-CREATE SEQUENCE users_user_id_seq
+CREATE SEQUENCE notifications_notification_id_seq
 	START WITH 1
 	INCREMENT BY 1
 	NO MINVALUE
 	NO MAXVALUE
 	CACHE 1;
 
-ALTER TABLE users_user_id_seq OWNER TO "vagrant";
+ALTER TABLE notifications_notification_id_seq OWNER TO "vagrant";
 
-ALTER SEQUENCE users_user_id_seq OWNED BY users.user_id;
+ALTER SEQUENCE notifications_notification_id_seq OWNED BY notifications.notification_id;
 
-ALTER TABLE ONLY users ALTER COLUMN user_id SET DEFAULT nextval('users_user_id_seq'::regclass);
+ALTER TABLE ONLY notifications ALTER COLUMN notification_id SET DEFAULT nextval('notifications_notification_id_seq'::regclass);
 
-COPY users
- (user_id, email, password, username, usertype) FROM stdin;
-1	annewoosamcode@gmail.com	testac	Anne Woo-Sam	creator
-2	retiringwiser@gmail.com	testrw	Hoot Owl	preparer
-3	strategicartscollaborative@gmail.com	testsa	Strategic Arts	reviewer
+COPY notifications
+ (notification_id, checklistid, datesenttoreview, reviewerfullname, revieweremail, datereviewcomplete, recipientfullname, recipientemail, datetorecipient) FROM stdin;
+1	1	2020-08-08	Strategic Arts	strategicartscollaborative@gmail.com	2020-08-09	Anne Woo-Sam	annewoosamcode@gmail.com	2020-08-10
 \.
+-- COPY notifications
+--  (notification_id, checklistid, datesenttoreview, reviewerfullname, revieweremail)
+-- 2	2	2020-08-09	Strategic Arts	strategicartscollaborative@gmail.com
+-- \.
+-- COPY notifications
+--  (notification_id, checklistid, datesenttoreview)
+-- 3	3	2020-08-10						
+-- \.
+-- Cover scenarios sent to recipient, assigned to review but not complete, not even out of prep
 
-SELECT pg_catalog.setval('users_user_id_seq', 12, true);
+SELECT pg_catalog.setval('notifications_notification_id_seq', 12, true);
 
-ALTER TABLE ONLY users
+ALTER TABLE ONLY notifications
 
-	ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
+	ADD CONSTRAINT notifications_pkey PRIMARY KEY (notification_id);
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
 REVOKE ALL ON SCHEMA public FROM postgres;

@@ -1,14 +1,18 @@
 "use strict";
 
-$('#get-user').on('submit', (evt) => {
+$('#get-notification').on('submit', (evt) => {
   evt.preventDefault();
 
-  const selectedId = $('#user-id').val();
+  const selectedId = $('#notification-id').val();
 
-  $.get(`/api/user/${selectedId}`, (res) => {
-    $('#username').html(res.username);
-    $('#email').html(res.email);
-    $('#usertype').html(res.usertype);
+  $.get(`/api/notification/${selectedId}`, (res) => {
+    $('#checklistid').html(res.checklistid);
+    $('#datesenttoreview').html(res.datesenttoreview);
+    $('#reviewerfullname').html(res.reviewerfullname);
+    $('#revieweremail').html(res.revieweremail);
+    $('#datereviewcomplete').html(res.datereviewcomplete);
+    $('#datetorecipient').html(res.datetorecipient);
+    $('#recipientfullname').html(res.recipientfullname);
+    $('#recipientemail').html(res.recipientemail);
   });
 });
-
